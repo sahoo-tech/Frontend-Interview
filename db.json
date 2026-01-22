@@ -1,4 +1,13 @@
 {
+  "users": [
+    {
+      "id": "05c1",
+      "name": "Sayantan Sahoo",
+      "email": "sayantansahoo02@gmail.com",
+      "password": "PzEz9rm4jVCsN5F",
+      "createdAt": "2026-01-22T07:22:47.009Z"
+    }
+  ],
   "blogs": [
     {
       "id": "1",
