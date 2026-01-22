@@ -1,5 +1,8 @@
 import { useState } from 'react'
 import { useRegister, type RegisterData } from '../hooks/useAuth'
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card'
+import { Input } from './ui/input'
+import { Button } from './ui/button'
 
 interface RegistrationModalProps {
     isOpen: boolean
@@ -74,322 +77,144 @@ export function RegistrationModal({ isOpen, onClose }: RegistrationModalProps) {
 
     return (
         <div
-            style={{
-                position: 'fixed',
-                inset: 0,
-                zIndex: 100,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                backdropFilter: 'blur(4px)',
-            }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4"
             onClick={(e) => {
                 if (e.target === e.currentTarget) onClose()
             }}
         >
-            <div
-                style={{
-                    backgroundColor: '#ffffff',
-                    borderRadius: '24px',
-                    padding: '40px',
-                    width: '100%',
-                    maxWidth: '440px',
-                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-                    animation: 'slideUp 0.3s ease-out',
-                }}
-            >
+            <Card className="w-full max-w-md animate-in fade-in zoom-in-95 duration-300">
                 {showSuccess ? (
-                    <div style={{ textAlign: 'center', padding: '40px 0' }}>
-                        <div style={{
-                            width: '80px',
-                            height: '80px',
-                            background: 'linear-gradient(135deg, #10b981, #059669)',
-                            borderRadius: '50%',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            margin: '0 auto 24px',
-                            fontSize: '36px'
-                        }}>
+                    <CardContent className="py-16 text-center">
+                        <div className="w-20 h-20 bg-gradient-to-br from-emerald-500 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-white text-4xl font-bold">
                             ✓
                         </div>
-                        <h2 style={{ fontSize: '24px', fontWeight: 700, color: '#1e293b', marginBottom: '8px' }}>
+                        <h2 className="text-2xl font-bold text-slate-800 mb-2">
                             Welcome to CA Monk!
                         </h2>
-                        <p style={{ color: '#64748b' }}>Registration successful</p>
-                    </div>
+                        <p className="text-slate-500">Registration successful</p>
+                    </CardContent>
                 ) : (
                     <>
                         {/* Header */}
-                        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-                            <div style={{
-                                width: '60px',
-                                height: '60px',
-                                background: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                                borderRadius: '16px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                margin: '0 auto 16px',
-                                color: 'white',
-                                fontWeight: 'bold',
-                                fontSize: '20px'
-                            }}>
+                        <CardHeader className="text-center pb-2">
+                            <div className="w-14 h-14 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center mx-auto mb-4 text-white font-bold text-lg">
                                 CA
                             </div>
-                            <h2 style={{
-                                fontSize: '24px',
-                                fontWeight: 700,
-                                color: '#1e293b',
-                                marginBottom: '8px'
-                            }}>
-                                Create Account
-                            </h2>
-                            <p style={{ color: '#64748b', fontSize: '14px' }}>
-                                Join the CA Monk community
-                            </p>
-                        </div>
+                            <CardTitle className="text-2xl">Create Account</CardTitle>
+                            <CardDescription>Join the CA Monk community</CardDescription>
+                        </CardHeader>
 
                         {/* Form */}
-                        <form onSubmit={handleSubmit}>
-                            {/* Name Field */}
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{
-                                    display: 'block',
-                                    fontSize: '14px',
-                                    fontWeight: 600,
-                                    color: '#374151',
-                                    marginBottom: '8px'
-                                }}>
-                                    Full Name
-                                </label>
-                                <input
-                                    type="text"
-                                    value={formData.name}
-                                    onChange={(e) => handleInputChange('name', e.target.value)}
-                                    placeholder="Enter your name"
-                                    style={{
-                                        width: '100%',
-                                        padding: '14px 16px',
-                                        fontSize: '15px',
-                                        border: `2px solid ${errors.name ? '#ef4444' : '#e2e8f0'}`,
-                                        borderRadius: '12px',
-                                        backgroundColor: '#f8fafc',
-                                        color: '#1e293b',
-                                        outline: 'none',
-                                        transition: 'all 0.2s ease',
-                                        boxSizing: 'border-box'
-                                    }}
-                                    onFocus={(e) => e.target.style.borderColor = '#6366f1'}
-                                    onBlur={(e) => e.target.style.borderColor = errors.name ? '#ef4444' : '#e2e8f0'}
-                                />
-                                {errors.name && (
-                                    <p style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.name}</p>
-                                )}
-                            </div>
-
-                            {/* Email Field */}
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{
-                                    display: 'block',
-                                    fontSize: '14px',
-                                    fontWeight: 600,
-                                    color: '#374151',
-                                    marginBottom: '8px'
-                                }}>
-                                    Email Address
-                                </label>
-                                <input
-                                    type="email"
-                                    value={formData.email}
-                                    onChange={(e) => handleInputChange('email', e.target.value)}
-                                    placeholder="you@example.com"
-                                    style={{
-                                        width: '100%',
-                                        padding: '14px 16px',
-                                        fontSize: '15px',
-                                        border: `2px solid ${errors.email ? '#ef4444' : '#e2e8f0'}`,
-                                        borderRadius: '12px',
-                                        backgroundColor: '#f8fafc',
-                                        color: '#1e293b',
-                                        outline: 'none',
-                                        transition: 'all 0.2s ease',
-                                        boxSizing: 'border-box'
-                                    }}
-                                    onFocus={(e) => e.target.style.borderColor = '#6366f1'}
-                                    onBlur={(e) => e.target.style.borderColor = errors.email ? '#ef4444' : '#e2e8f0'}
-                                />
-                                {errors.email && (
-                                    <p style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.email}</p>
-                                )}
-                            </div>
-
-                            {/* Password Field */}
-                            <div style={{ marginBottom: '20px' }}>
-                                <label style={{
-                                    display: 'block',
-                                    fontSize: '14px',
-                                    fontWeight: 600,
-                                    color: '#374151',
-                                    marginBottom: '8px'
-                                }}>
-                                    Password
-                                </label>
-                                <input
-                                    type="password"
-                                    value={formData.password}
-                                    onChange={(e) => handleInputChange('password', e.target.value)}
-                                    placeholder="At least 6 characters"
-                                    style={{
-                                        width: '100%',
-                                        padding: '14px 16px',
-                                        fontSize: '15px',
-                                        border: `2px solid ${errors.password ? '#ef4444' : '#e2e8f0'}`,
-                                        borderRadius: '12px',
-                                        backgroundColor: '#f8fafc',
-                                        color: '#1e293b',
-                                        outline: 'none',
-                                        transition: 'all 0.2s ease',
-                                        boxSizing: 'border-box'
-                                    }}
-                                    onFocus={(e) => e.target.style.borderColor = '#6366f1'}
-                                    onBlur={(e) => e.target.style.borderColor = errors.password ? '#ef4444' : '#e2e8f0'}
-                                />
-                                {errors.password && (
-                                    <p style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.password}</p>
-                                )}
-                            </div>
-
-                            {/* Confirm Password Field */}
-                            <div style={{ marginBottom: '24px' }}>
-                                <label style={{
-                                    display: 'block',
-                                    fontSize: '14px',
-                                    fontWeight: 600,
-                                    color: '#374151',
-                                    marginBottom: '8px'
-                                }}>
-                                    Confirm Password
-                                </label>
-                                <input
-                                    type="password"
-                                    value={confirmPassword}
-                                    onChange={(e) => {
-                                        setConfirmPassword(e.target.value)
-                                        if (errors.confirmPassword) {
-                                            setErrors(prev => ({ ...prev, confirmPassword: '' }))
-                                        }
-                                    }}
-                                    placeholder="Re-enter your password"
-                                    style={{
-                                        width: '100%',
-                                        padding: '14px 16px',
-                                        fontSize: '15px',
-                                        border: `2px solid ${errors.confirmPassword ? '#ef4444' : '#e2e8f0'}`,
-                                        borderRadius: '12px',
-                                        backgroundColor: '#f8fafc',
-                                        color: '#1e293b',
-                                        outline: 'none',
-                                        transition: 'all 0.2s ease',
-                                        boxSizing: 'border-box'
-                                    }}
-                                    onFocus={(e) => e.target.style.borderColor = '#6366f1'}
-                                    onBlur={(e) => e.target.style.borderColor = errors.confirmPassword ? '#ef4444' : '#e2e8f0'}
-                                />
-                                {errors.confirmPassword && (
-                                    <p style={{ color: '#ef4444', fontSize: '12px', marginTop: '6px' }}>{errors.confirmPassword}</p>
-                                )}
-                            </div>
-
-                            {/* Error Message */}
-                            {error && (
-                                <div style={{
-                                    backgroundColor: '#fef2f2',
-                                    border: '1px solid #fecaca',
-                                    borderRadius: '10px',
-                                    padding: '12px 16px',
-                                    marginBottom: '20px',
-                                    color: '#dc2626',
-                                    fontSize: '14px'
-                                }}>
-                                    ⚠️ Registration failed. Please try again.
+                        <CardContent>
+                            <form onSubmit={handleSubmit} className="space-y-5">
+                                {/* Name Field */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                        Full Name
+                                    </label>
+                                    <Input
+                                        type="text"
+                                        value={formData.name}
+                                        onChange={(e) => handleInputChange('name', e.target.value)}
+                                        placeholder="Enter your name"
+                                        className={`h-12 ${errors.name ? 'border-red-500 focus:border-red-500' : ''}`}
+                                    />
+                                    {errors.name && (
+                                        <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+                                    )}
                                 </div>
-                            )}
 
-                            {/* Submit Button */}
-                            <button
-                                type="submit"
-                                disabled={isPending}
-                                style={{
-                                    width: '100%',
-                                    padding: '16px',
-                                    borderRadius: '12px',
-                                    fontSize: '16px',
-                                    fontWeight: 600,
-                                    border: 'none',
-                                    cursor: isPending ? 'not-allowed' : 'pointer',
-                                    background: isPending
-                                        ? '#94a3b8'
-                                        : 'linear-gradient(135deg, #6366f1, #8b5cf6)',
-                                    color: '#ffffff',
-                                    boxShadow: isPending
-                                        ? 'none'
-                                        : '0 4px 14px rgba(99, 102, 241, 0.4)',
-                                    transition: 'all 0.2s ease',
-                                    marginBottom: '16px'
-                                }}
-                            >
-                                {isPending ? '⏳ Creating Account...' : '✨ Create Account'}
-                            </button>
+                                {/* Email Field */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                        Email Address
+                                    </label>
+                                    <Input
+                                        type="email"
+                                        value={formData.email}
+                                        onChange={(e) => handleInputChange('email', e.target.value)}
+                                        placeholder="you@example.com"
+                                        className={`h-12 ${errors.email ? 'border-red-500 focus:border-red-500' : ''}`}
+                                    />
+                                    {errors.email && (
+                                        <p className="text-red-500 text-xs mt-1">{errors.email}</p>
+                                    )}
+                                </div>
 
-                            {/* Close Button */}
-                            <button
-                                type="button"
-                                onClick={onClose}
-                                style={{
-                                    width: '100%',
-                                    padding: '14px',
-                                    borderRadius: '12px',
-                                    fontSize: '15px',
-                                    fontWeight: 500,
-                                    border: '2px solid #e2e8f0',
-                                    backgroundColor: 'transparent',
-                                    color: '#64748b',
-                                    cursor: 'pointer',
-                                    transition: 'all 0.2s ease'
-                                }}
-                            >
-                                Cancel
-                            </button>
-                        </form>
+                                {/* Password Field */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                        Password
+                                    </label>
+                                    <Input
+                                        type="password"
+                                        value={formData.password}
+                                        onChange={(e) => handleInputChange('password', e.target.value)}
+                                        placeholder="At least 6 characters"
+                                        className={`h-12 ${errors.password ? 'border-red-500 focus:border-red-500' : ''}`}
+                                    />
+                                    {errors.password && (
+                                        <p className="text-red-500 text-xs mt-1">{errors.password}</p>
+                                    )}
+                                </div>
 
-                        {/* Footer */}
-                        <p style={{
-                            textAlign: 'center',
-                            marginTop: '24px',
-                            fontSize: '13px',
-                            color: '#94a3b8'
-                        }}>
-                            By registering, you agree to our Terms of Service
-                        </p>
+                                {/* Confirm Password Field */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-slate-700 mb-2">
+                                        Confirm Password
+                                    </label>
+                                    <Input
+                                        type="password"
+                                        value={confirmPassword}
+                                        onChange={(e) => {
+                                            setConfirmPassword(e.target.value)
+                                            if (errors.confirmPassword) {
+                                                setErrors(prev => ({ ...prev, confirmPassword: '' }))
+                                            }
+                                        }}
+                                        placeholder="Re-enter your password"
+                                        className={`h-12 ${errors.confirmPassword ? 'border-red-500 focus:border-red-500' : ''}`}
+                                    />
+                                    {errors.confirmPassword && (
+                                        <p className="text-red-500 text-xs mt-1">{errors.confirmPassword}</p>
+                                    )}
+                                </div>
+
+                                {/* Error Message */}
+                                {error && (
+                                    <div className="bg-red-50 border border-red-200 rounded-lg p-3 text-red-600 text-sm">
+                                        ⚠️ Registration failed. Please try again.
+                                    </div>
+                                )}
+
+                                {/* Submit Button */}
+                                <Button
+                                    type="submit"
+                                    disabled={isPending}
+                                    className="w-full h-12 bg-gradient-to-r from-indigo-500 to-purple-500 hover:from-indigo-600 hover:to-purple-600 shadow-lg shadow-indigo-300/40"
+                                >
+                                    {isPending ? '⏳ Creating Account...' : '✨ Create Account'}
+                                </Button>
+
+                                {/* Close Button */}
+                                <Button
+                                    type="button"
+                                    variant="outline"
+                                    onClick={onClose}
+                                    className="w-full h-11"
+                                >
+                                    Cancel
+                                </Button>
+                            </form>
+
+                            {/* Footer */}
+                            <p className="text-center mt-6 text-xs text-slate-400">
+                                By registering, you agree to our Terms of Service
+                            </p>
+                        </CardContent>
                     </>
                 )}
-            </div>
-
-            {/* Animation keyframes */}
-            <style>{`
-                @keyframes slideUp {
-                    from {
-                        opacity: 0;
-                        transform: translateY(20px);
-                    }
-                    to {
-                        opacity: 1;
-                        transform: translateY(0);
-                    }
-                }
-            `}</style>
+            </Card>
         </div>
     )
 }

@@ -1,3 +1,5 @@
+import { Button } from './ui/button'
+
 type ViewType = 'all' | 'byId' | 'create'
 
 interface BlogNavigationProps {
@@ -7,90 +9,37 @@ interface BlogNavigationProps {
 
 export function BlogNavigation({ activeView, onViewChange }: BlogNavigationProps) {
     return (
-        <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '12px',
-            padding: '16px 24px',
-            backgroundColor: '#ffffff',
-            borderRadius: '12px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-            marginBottom: '24px'
-        }}>
-            <span style={{
-                fontSize: '14px',
-                fontWeight: 600,
-                color: '#64748b',
-                marginRight: '8px'
-            }}>
+        <div className="flex flex-wrap items-center gap-3 p-4 md:px-6 bg-white rounded-xl shadow-sm border border-slate-200 mb-6">
+            <span className="text-sm font-semibold text-slate-500 mr-2 hidden sm:inline">
                 Actions:
             </span>
 
-            <button
+            <Button
                 onClick={() => onViewChange('all')}
-                style={{
-                    padding: '10px 20px',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    background: activeView === 'all'
-                        ? 'linear-gradient(135deg, #6366f1, #8b5cf6)'
-                        : '#f1f5f9',
-                    color: activeView === 'all' ? '#ffffff' : '#475569',
-                    boxShadow: activeView === 'all'
-                        ? '0 4px 12px rgba(99, 102, 241, 0.3)'
-                        : 'none'
-                }}
+                variant={activeView === 'all' ? 'default' : 'outline'}
+                className={activeView === 'all' ? 'bg-gradient-to-r from-indigo-500 to-purple-500 shadow-lg shadow-indigo-300/40' : ''}
             >
-                📚 Get All Blogs
-            </button>
+                📚 <span className="hidden sm:inline ml-1">Get All Blogs</span>
+                <span className="sm:hidden ml-1">All</span>
+            </Button>
 
-            <button
+            <Button
                 onClick={() => onViewChange('byId')}
-                style={{
-                    padding: '10px 20px',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    background: activeView === 'byId'
-                        ? 'linear-gradient(135deg, #6366f1, #8b5cf6)'
-                        : '#f1f5f9',
-                    color: activeView === 'byId' ? '#ffffff' : '#475569',
-                    boxShadow: activeView === 'byId'
-                        ? '0 4px 12px rgba(99, 102, 241, 0.3)'
-                        : 'none'
-                }}
+                variant={activeView === 'byId' ? 'default' : 'outline'}
+                className={activeView === 'byId' ? 'bg-gradient-to-r from-indigo-500 to-purple-500 shadow-lg shadow-indigo-300/40' : ''}
             >
-                🔍 Get Blog by ID
-            </button>
+                🔍 <span className="hidden sm:inline ml-1">Get Blog by ID</span>
+                <span className="sm:hidden ml-1">By ID</span>
+            </Button>
 
-            <button
+            <Button
                 onClick={() => onViewChange('create')}
-                style={{
-                    padding: '10px 20px',
-                    borderRadius: '8px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    background: activeView === 'create'
-                        ? 'linear-gradient(135deg, #6366f1, #8b5cf6)'
-                        : '#f1f5f9',
-                    color: activeView === 'create' ? '#ffffff' : '#475569',
-                    boxShadow: activeView === 'create'
-                        ? '0 4px 12px rgba(99, 102, 241, 0.3)'
-                        : 'none'
-                }}
+                variant={activeView === 'create' ? 'default' : 'outline'}
+                className={activeView === 'create' ? 'bg-gradient-to-r from-indigo-500 to-purple-500 shadow-lg shadow-indigo-300/40' : ''}
             >
-                ✨ Create New Blog
-            </button>
+                ✨ <span className="hidden sm:inline ml-1">Create New Blog</span>
+                <span className="sm:hidden ml-1">Create</span>
+            </Button>
         </div>
     )
 }

@@ -1,5 +1,6 @@
 import { useBlogs } from '../hooks/useBlogs'
 import { BlogCard } from './BlogCard'
+import { Skeleton } from './ui/skeleton'
 
 interface BlogListProps {
     selectedId: string | null
@@ -11,83 +12,42 @@ export function BlogList({ selectedId, onSelectBlog }: BlogListProps) {
 
     if (isLoading) {
         return (
-            <div style={{ padding: '20px 0' }}>
+            <div className="py-5 space-y-3">
                 {[...Array(5)].map((_, i) => (
-                    <div key={i} style={{
-                        padding: '16px',
-                        marginBottom: '12px',
-                        borderRadius: '12px',
-                        backgroundColor: '#f8fafc',
-                        border: '1px solid #e2e8f0'
-                    }}>
-                        <div style={{
-                            height: '20px',
-                            width: '60px',
-                            backgroundColor: '#e2e8f0',
-                            borderRadius: '4px',
-                            marginBottom: '10px',
-                            animation: 'pulse 1.5s ease-in-out infinite'
-                        }} />
-                        <div style={{
-                            height: '16px',
-                            width: '100%',
-                            backgroundColor: '#e2e8f0',
-                            borderRadius: '4px',
-                            marginBottom: '8px',
-                            animation: 'pulse 1.5s ease-in-out infinite'
-                        }} />
-                        <div style={{
-                            height: '14px',
-                            width: '80%',
-                            backgroundColor: '#e2e8f0',
-                            borderRadius: '4px',
-                            animation: 'pulse 1.5s ease-in-out infinite'
-                        }} />
+                    <div
+                        key={i}
+                        className="p-4 rounded-xl bg-slate-50 border border-slate-200"
+                    >
+                        <Skeleton className="h-5 w-16 mb-3" />
+                        <Skeleton className="h-4 w-full mb-2" />
+                        <Skeleton className="h-4 w-4/5" />
                     </div>
                 ))}
-                <style>{`
-                    @keyframes pulse {
-                        0%, 100% { opacity: 1; }
-                        50% { opacity: 0.5; }
-                    }
-                `}</style>
             </div>
         )
     }
 
     if (error) {
         return (
-            <div style={{
-                textAlign: 'center',
-                padding: '40px 20px',
-                backgroundColor: '#fef2f2',
-                borderRadius: '12px',
-                border: '1px solid #fecaca'
-            }}>
-                <div style={{ fontSize: '32px', marginBottom: '12px' }}>⚠️</div>
-                <p style={{ color: '#dc2626', fontWeight: 500, marginBottom: '8px' }}>Failed to load articles</p>
-                <p style={{ color: '#f87171', fontSize: '13px' }}>Please check your connection</p>
+            <div className="text-center py-10 px-5 bg-red-50 rounded-xl border border-red-200">
+                <div className="text-3xl mb-3">⚠️</div>
+                <p className="text-red-600 font-medium mb-2">Failed to load articles</p>
+                <p className="text-red-400 text-sm">Please check your connection</p>
             </div>
         )
     }
 
     if (!blogs || blogs.length === 0) {
         return (
-            <div style={{
-                textAlign: 'center',
-                padding: '40px 20px',
-                backgroundColor: '#f8fafc',
-                borderRadius: '12px',
-                border: '1px solid #e2e8f0'
-            }}>
-                <div style={{ fontSize: '32px', marginBottom: '12px' }}>📭</div>
-                <p style={{ color: '#64748b', fontWeight: 500 }}>No articles yet</p>
+            <div className="text-center py-10 px-5 bg-slate-50 rounded-xl border border-slate-200">
+                <div className="text-3xl mb-3">📭</div>
+                <p className="text-slate-500 font-medium">No articles yet</p>
             </div>
         )
     }
 
     return (
-        <div>
+        <div className="space-y-3">
             {blogs.map((blog) => (
                 <BlogCard
                     key={blog.id}
